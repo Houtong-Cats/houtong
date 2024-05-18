@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import Wardrobe from '../assets/wardrobe';
+import Navbar from '../assets/navbar';
 export default function test() {
 
     const itemId = useLocation().pathname.split("/")[2];
@@ -7,6 +8,7 @@ export default function test() {
 
     return (
         <div>
+            <Navbar></Navbar>
             <Wardrobe></Wardrobe>
         </div>
     );
