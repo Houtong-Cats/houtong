@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Item from "./pages/Item";
 import Webcam from "./pages/Webcam";
 import Index from "./pages/Index";
+import Three from "./pages/Three";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route index element={<Index />} />
         <Route path="/webcam" element={<Webcam />} />
+        <Route path="/three" element={<Three />} />
         <Route path="/items/:itemId" element={<Item />} />
         <Route path="*" element={<Home />} />
       </Routes>
