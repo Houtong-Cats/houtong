@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 export default function useCameraKit() {
   const [cameraKit, setCameraKit] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState(null);
   const apiToken = import.meta.env.VITE_CAMERA_KIT_API_TOKEN;
 
   useEffect(() => {
@@ -15,9 +16,11 @@ export default function useCameraKit() {
         return;
       }
       
-      const cameraKit = await bootstrapCameraKit(apiToken);
+      const cameraKit = await bootstrapCameraKit({ apiToken });
+      const session = await cameraKit.createSession();
       setCameraKit(cameraKit);
-
+      setSession(session);
+      
       setLoading(false);
     }
 
@@ -26,6 +29,7 @@ export default function useCameraKit() {
 
   return {
     cameraKit,
-    loading
+    loading,
+    session
   }
 }

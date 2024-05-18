@@ -4,15 +4,13 @@ import Item from './pages/Item';
 
 function App() {
     return (
-        <html>
-            <BrowserRouter>
+        <BrowserRouter>
             <Routes>
                 <Route index element={<Home />}/>
                 <Route path="/items/:itemId" element={<Item />} />
                 <Route path="*" element={<Home />}/>
             </Routes>
-            </BrowserRouter>
-        </html>
+        </BrowserRouter>
     )
 }
 
