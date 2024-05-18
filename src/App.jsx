@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import Item from './pages/Item';
 
 function App() {
     return (
@@ -7,10 +8,7 @@ function App() {
             <BrowserRouter>
             <Routes>
                 <Route index element={<Home />}/>
-                {/* <Route path="/playground" element={<Playground />}/>
-                <Route path="/:profileName" element={<Profile />} />
-                <Route path="/@:profileName" element={<Profile />} />
-                <Route path="/temp" element={<Temp />}/> */}
+                <Route path="/items/:itemId" element={<Item />} />
                 <Route path="*" element={<Home />}/>
             </Routes>
             </BrowserRouter>
