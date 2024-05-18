@@ -20,8 +20,10 @@ export default function Home() {
       await session.setSource(source);
 
       // Loading a single lens
-      const lens = await cameraKit.lensRepository.loadLens("<Lens ID>", "<Lens Group ID>");
+      const lens = await cameraKit.lensRepository.loadLens("98eb2370-eb16-48ac-a1e1-d4bfb92a4c89", "d792b303-7695-486e-bd18-0e3e7222e6c1");
       await session.applyLens(lens);
+
+      session.play("live");
 
       // // Loading one or more Lens Groups – Lenses from all groups are returned as a single array of lenses.
       // const { lenses } = await cameraKit.lensRepository.loadLensGroups(["<Lens Group ID 1>", "<Lens Group ID 2>"]);
