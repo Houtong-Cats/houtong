@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fade-in 3s ease-in-out;
+}
+
+.item:hover{
+    cursor: pointer;
+    opacity: 60%;
+}
