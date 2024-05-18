@@ -29,7 +29,7 @@ export default function Home() {
 
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             const source = createMediaStreamSource(stream, {
-                fpsLimit: 30, // 30
+                // fpsLimit: 60, // 30
                 transform: Transform2D.MirrorX,
                 cameraType: "front",
             });
