@@ -8,7 +8,7 @@ const colorDistance = (r1, g1, b1, r2, g2, b2) => {
     return Math.sqrt((r2 - r1) ** 2 + (g2 - g1) ** 2 + (b2 - b1) ** 2);
 };
 
-export default function Item() {
+export default function Camera() {
     const topCanvasRef = useRef(null);
     const bottomCanvasRef = useRef(null);
     const accessoryCanvasRef = useRef(null);
@@ -179,17 +179,26 @@ export default function Item() {
     }
 
     return (
-        <div className="flex flex-col w-full h-screen">
-            <Navbar /> 
-            <div className="flex flex-row h-screen">
-                <div className="w-1/2 h-fill bg-white">
-                    <Wardrobe />
-                </div>
-                <div className="flex w-1/2 h-fill bg-black justify-center items-center">
-                    <div className="w-1/2 h-5/6 rounded-3xl bg-orange-300 object-cover">
-                        <Camera />
-                    </div>
-                </div>
+        <div className="flex flex-col w-full h-full object-cover">
+            <div id="top-canvas-container" className="absolute invisible">
+                <canvas ref={topCanvasRef} className="w-full h-full" />
+                <h2 className="text-center text-white">Top Camera</h2>
+            </div>
+            <div id="bottom-canvas-container" className="absolute invisible">
+                <canvas ref={bottomCanvasRef} className="w-full h-full" />
+                <h2 className="text-center text-white">Bottom Camera</h2>
+            </div>
+            <div id="accessory-canvas-container" className="absolute invisible">
+                <canvas ref={accessoryCanvasRef} className="w-full h-full" />
+                <h2 className="text-center text-white">Accessory Camera</h2>
+            </div>
+            <div id="camera-canvas-container" className="absolute invisible">
+                <canvas ref={cameraCanvasRef} className="w-full h-full" />
+                <h2 className="text-center text-white">Camera</h2>
+            </div>
+            <div className="">
+                <canvas ref={resultCanvasRef} className="w-full h-full" />
+                <h2 className="text-center text-white">Result</h2>
             </div>
         </div>
     );
