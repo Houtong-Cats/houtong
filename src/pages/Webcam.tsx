@@ -9,6 +9,7 @@ import { NormalizedLandmark } from "@mediapipe/tasks-vision";
 import { getColorFromIdx } from "../lib/utils";
 
 type SphereType = THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial, THREE.Object3DEventMap>;
+type AvatarType = THREE.Mesh<THREE.BoxGeometry, THREE.MeshBasicMaterial, THREE.Object3DEventMap>;
 
 export default function Webcam() {
   const { poseLandmarker } = usePoseLandmarker();
@@ -16,6 +17,7 @@ export default function Webcam() {
   const lastVideoTimeRef = useRef(-1);
   const pointsRef = useRef<SphereType[][]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const avatarsRef = useRef<AvatarType[]>([]);
 
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const [deviceId, setDeviceId] = useState<string>("");
@@ -65,6 +67,13 @@ export default function Webcam() {
       }
 
       pointsRef.current.push(landmarkSpheres);
+
+      // create avatar visualization
+      const geometry = new THREE.BoxGeometry(0.1, 0.5, 0.1);
+      const material = new THREE.MeshBasicMaterial({ color: getColorFromIdx(poseIdx) });
+      const avatar = new THREE.Mesh(geometry, material);
+      scene.add(avatar);
+      avatarsRef.current.push(avatar);
     }
 
     function animate() {
@@ -97,10 +106,30 @@ export default function Webcam() {
               // update landmarkSphere position
               const landmarkData: NormalizedLandmark = poses[poseIdx][landmarkIdx];
               landmarkSphere.visible = true;
-              landmarkSphere.position.x = landmarkData.x;
+              landmarkSphere.position.x = 1 - landmarkData.x;
               landmarkSphere.position.y = -landmarkData.y;
               // landmarkSphere.position.z = -landmarkData.z;
             }
+
+            // draw avatar visualization
+            // visualize at the bottom left of the screen, only visualize rotation or tilt of the avatar (no translation)
+            const avatar = avatarsRef.current[poseIdx];
+            if (poseIdx > poses.length - 1) {
+              avatar.visible = false;
+              continue;
+            }
+            avatar.visible = true;
+            const pose = poses[poseIdx];
+            const leftShoulder = pose[11];
+            const rightShoulder = pose[12];
+            const leftHip = pose[23];
+            const rightHip = pose[24];
+            const x = (leftShoulder.x + rightShoulder.x + leftHip.x + rightHip.x) / 4;
+            const y = -(leftShoulder.y + rightShoulder.y + leftHip.y + rightHip.y) / 4;
+            avatar.position.x = x;
+            avatar.position.y = y;
+            avatar.rotation.z = Math.atan2(leftShoulder.y - rightShoulder.y, leftShoulder.x - rightShoulder.x);
+            avatar.rotation.x = Math.atan2(leftHip.y - leftShoulder.y, leftHip.x - leftShoulder.x);
           }
         });
       }
@@ -113,7 +142,7 @@ export default function Webcam() {
 
   return (
     <div style={{ position: "relative" }}>
-      <ReactWebcam audio={false} ref={webcamRef} videoConstraints={{ deviceId }} onLoadedData={handleLoadedData} />
+      <ReactWebcam audio={false} ref={webcamRef} videoConstraints={{ deviceId }} onLoadedData={handleLoadedData} mirrored={true} />
       <select value={deviceId} onChange={(e) => setDeviceId(e.target.value)}>
         {devices.map((device) => (
           <option key={device.deviceId} value={device.deviceId}>
