@@ -14,3 +14,8 @@
 .fadeIn {
     animation: fade-in 3s ease-in-out;
 }
+
+.item:hover{
+    cursor: pointer;
+    opacity: 60%;
+}
