@@ -69,7 +69,7 @@ export default function Webcam() {
       pointsRef.current.push(landmarkSpheres);
 
       // create avatar visualization
-      const geometry = new THREE.BoxGeometry(0.1, 0.5, 0.1);
+      const geometry = new THREE.BoxGeometry(0.5, 0.1, 0.1);
       const material = new THREE.MeshBasicMaterial({ color: getColorFromIdx(poseIdx) });
       const avatar = new THREE.Mesh(geometry, material);
       scene.add(avatar);
@@ -124,10 +124,12 @@ export default function Webcam() {
             const rightShoulder = pose[12];
             const leftHip = pose[23];
             const rightHip = pose[24];
-            const x = (leftShoulder.x + rightShoulder.x + leftHip.x + rightHip.x) / 4;
+            const x = 1 - (leftShoulder.x + rightShoulder.x + leftHip.x + rightHip.x) / 4;
             const y = -(leftShoulder.y + rightShoulder.y + leftHip.y + rightHip.y) / 4;
             avatar.position.x = x;
             avatar.position.y = y;
+            // avatar.position.x = 0.5;
+            // avatar.position.y = -0.5;
             avatar.rotation.z = Math.atan2(leftShoulder.y - rightShoulder.y, leftShoulder.x - rightShoulder.x);
             avatar.rotation.x = Math.atan2(leftHip.y - leftShoulder.y, leftHip.x - leftShoulder.x);
           }
