@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { bootstrapCameraKit } from '@snap/camera-kit';
-import { useEffect } from 'react';
+import { bootstrapCameraKit } from "@snap/camera-kit";
+import { useEffect } from "react";
 
 export default function useCameraKit() {
   const [cameraKit, setCameraKit] = useState(null);
@@ -12,15 +12,15 @@ export default function useCameraKit() {
   useEffect(() => {
     async function initCameraKit() {
       if (!apiToken) {
-        console.error('Missing Camera Kit API token');
+        console.error("Missing Camera Kit API token");
         return;
       }
-      
+
       const cameraKit = await bootstrapCameraKit({ apiToken });
       const session = await cameraKit.createSession();
       setCameraKit(cameraKit);
       setSession(session);
-      
+
       setLoading(false);
     }
 
@@ -30,6 +30,6 @@ export default function useCameraKit() {
   return {
     cameraKit,
     loading,
-    session
-  }
+    session,
+  };
 }

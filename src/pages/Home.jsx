@@ -3,13 +3,14 @@ import { createMediaStreamSource, Transform2D } from "@snap/camera-kit";
 import useCameraKit from "../hooks/useCameraKit";
 
 export default function Home() {
-  const { cameraKit, loading, session } = useCameraKit();
+  const { cameraKit, loading, session } = useCameraKit(document.getElementById("canvas-container"));
 
   useEffect(() => {
     async function initCameraKit() {
       if (!session) return;
 
       const canvasContainer = document.getElementById("canvas-container");
+      canvasContainer.innerHTML = "";
       canvasContainer.appendChild(session.output.live);
 
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
