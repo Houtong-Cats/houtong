@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SpinningPreview from "../components/SpinningPreview";
 
-import { tops, bottoms } from "../data/apparel.ts";
+import { tops, bottoms, accessories } from "../data/apparel.ts";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -19,8 +19,6 @@ function useItemClick() {
 }
 
 export default function Wardrobe() {
-  const accessories = Array.from({ length: 5 }, (_, index) => `Accessory ${index + 1}`);
-
   const [selectedTopIndex, setSelectedTopIndex] = useItemClick();
   const [selectedBottomIndex, setSelectedBottomIndex] = useItemClick();
   const [selectedAccessoryIndex, setSelectedAccessoryIndex] = useItemClick();
@@ -41,38 +39,56 @@ export default function Wardrobe() {
     }
   }
 
+  function selectBottom(newBottomId) {
+    if (bottomId === newBottomId) {
+      return;
+    } else {
+      navigate(`/items?top=${topId}&bottom=${newBottomId}&accessory=${accessoryId}`);
+      window.location.reload();
+    }
+  }
+
+  function selectAccessory(newAccessoryId) {
+    if (accessoryId === newAccessoryId) {
+      return;
+    } else {
+      navigate(`/items?top=${topId}&bottom=${bottomId}&accessory=${newAccessoryId}`);
+      window.location.reload();
+    }
+  }
+
   return (
-    <div className="font-poppins flex flex-row border border-[#8B827B] border-[4px] gap-10 text-white bg-[#5B4F45] w-[700px] h-[600px] rounded-xl object-center align-center justify-center">
+    <div className="font-poppins flex flex-row border border-[#8B827B] gap-10 text-white bg-[#5B4F45] w-[700px] h-[600px] rounded-xl object-center align-center justify-center">
       <div className="mt-[2vw]">
         <h2 className="text-[20px] font-bold mb-4 ">Tops</h2>
-        <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
+        <div className="overflow-y-auto w-[200px] h-[80%] mt-[3vw]">
           {tops.map((topItem, index) => (
             <div
               key={index}
               onClick={() => { setSelectedTopIndex(index); console.log(topItem.lenId); selectTop(topItem.lenId); }}
               className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black ${selectedTopIndex === index ? "bg-blue-500" : ""}`}
             >
-              {topItem.glbFile ? <SpinningPreview glbFile={topItem.glbFile} /> : topItem.lenId}
+              {topItem.glbFile ? <SpinningPreview glbFile={topItem.glbFile} /> : <div className="w-full h-full text-center">{topItem.title}</div>}
             </div>
           ))}
         </div>
       </div>
       <div className="mt-[2vw]">
         <h2 className="text-xl font-bold mb-4">Bottoms</h2>
-        <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
-          {bottoms.map((item, index) => (
-            <div key={index} onClick={() => setSelectedBottomIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedBottomIndex === index ? "bg-blue-500" : ""}`}>
-              {/* {item} */}
+        <div className="overflow-y-auto w-[200px] h-[80%] mt-[3vw]">
+          {bottoms.map((bottomItem, index) => (
+            <div key={index} onClick={() => {setSelectedBottomIndex(index); console.log(bottomItem.lenId); selectBottom(bottomItem.lenId); }} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black ${selectedBottomIndex === index ? "bg-blue-500" : ""}`}>
+              {bottomItem.glbFile ? <SpinningPreview glbFile={bottomItem.glbFile} /> : <div className="w-full h-full text-center">{bottomItem.title}</div>}
             </div>
           ))}
         </div>
       </div>
       <div className="mt-[2vw]">
         <h2 className="text-xl font-bold mb-4">Accessories</h2>
-        <div className="overflow-y-scroll h-[80%] w-[200px] mt-[3vw]">
-          {accessories.map((item, index) => (
-            <div key={index} onClick={() => setSelectedAccessoryIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedAccessoryIndex === index ? "bg-blue-500" : ""}`}>
-              {/* {item} */}
+        <div className="overflow-y-auto h-[80%] w-[200px] mt-[3vw]">
+          {accessories.map((accessoryItem, index) => (
+            <div key={index} onClick={() => {setSelectedAccessoryIndex(index); console.log(accessoryItem.lenId); selectAccessory(accessoryItem.lenId); }} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black ${selectedAccessoryIndex === index ? "bg-blue-500" : ""}`}>
+              {accessoryItem.glbFile ? <SpinningPreview glbFile={accessoryItem.glbFile} /> : <div className="w-full h-full text-center">{accessoryItem.title}</div>}
             </div>
           ))}
         </div>
