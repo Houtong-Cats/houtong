@@ -14,7 +14,7 @@ export default function CustomButton({onSuccess}: {onSuccess: () => void}){
       await setImage(base64);
 
       // sleep for 1 second then call onSuccess
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       onSuccess();
     };

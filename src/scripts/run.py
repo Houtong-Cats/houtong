@@ -43,23 +43,31 @@ def save_base64_to_png(base64_string, output_file):
 
 
 def mouse_sequence():
-    pyautogui.moveTo(791, 570)
-    time.sleep(0.1)
+    DELAY = 0.1
+    pyautogui.moveTo(787, 570)
+    time.sleep(DELAY)
     pyautogui.click()
-    time.sleep(0.1)
+    time.sleep(DELAY)
     pyautogui.moveTo(634, 288)
-    time.sleep(0.1)
+    time.sleep(DELAY)
     pyautogui.click()
-    time.sleep(0.1)
+    time.sleep(DELAY)
     pyautogui.moveTo(582, 328)
-    time.sleep(0.1)
+    time.sleep(DELAY)
     pyautogui.click()
-    time.sleep(0.1)
+    time.sleep(DELAY)
     pyautogui.moveTo(1318, 421)
-    time.sleep(0.1)
+    time.sleep(DELAY)
     pyautogui.click()
-    time.sleep(0.1)
-    pyautogui.moveTo(791, 570)
+    time.sleep(DELAY)
+    pyautogui.moveTo(1442, 727)
+    time.sleep(DELAY)
+    pyautogui.click()
+    time.sleep(DELAY)
+    pyautogui.moveTo(915, 700)
+    time.sleep(DELAY)
+    pyautogui.click()
+    
      
 
 # ---------------------------------------------------------------
@@ -100,7 +108,7 @@ doc_watch = doc_ref.on_snapshot(on_snapshot)
 while True:
     time.sleep(1)
     
-    # x, y = pyautogui.position()
     
     # # Print the coordinates
+    # x, y = pyautogui.position()
     # print(f"Mouse position - X: {x}, Y: {y}")
