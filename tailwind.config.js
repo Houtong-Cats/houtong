@@ -10,6 +10,9 @@ export default {
                 cherry: ['"Cherry Bomb"', 'cursive'],
                 poppins: ['"Poppins"', 'sans-serif']
             },
+            backgroundImage: {
+                'custom-gradient': 'linear-gradient(to bottom, #000000, #70675F)',
+            },
         },
     },
     plugins: [],
