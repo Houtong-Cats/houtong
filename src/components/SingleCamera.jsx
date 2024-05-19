@@ -3,9 +3,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import { createMediaStreamSource, Transform2D } from "@snap/camera-kit";
 import useCameraKit from "../hooks/useCameraKit";
 
-// Function to compare if 2 rgba values are almost the same color
-const colorDistance = (r1, g1, b1, r2, g2, b2) => {
-    return Math.sqrt((r2 - r1) ** 2 + (g2 - g1) ** 2 + (b2 - b1) ** 2);
+const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
 };
 
 export default function MultiCamera() {
@@ -14,10 +13,22 @@ export default function MultiCamera() {
 
     const { cameraKit: lenCameraKit, loading: loadingLen, session: lenSession } = useCameraKit();
 
-    const itemId = useLocation().pathname.split("/")[2];
-    console.log(itemId);
+    const query = useQuery();
+    const topId = query.get('top');
+    const bottomId = query.get('bottom');
+    const accessoryId = query.get('accessory');
 
-    const len = "a2e19cb7-c79e-419d-9bd1-f38ac4db454c";
+    console.log(topId, bottomId, accessoryId);
+
+    let len = null;
+    if (topId) {
+        len = topId;
+    } else if (bottomId) {
+        len = bottomId;
+    } else if (accessoryId) {
+        len = accessoryId;
+    }
+
     const groupId = "d792b303-7695-486e-bd18-0e3e7222e6c1"
 
     useEffect(() => {
