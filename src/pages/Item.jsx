@@ -30,9 +30,10 @@ export default function Item() {
         <div className="flex flex-col w-full h-screen">
             <Navbar />      
             <div className="flex flex-col md:flex-row h-screen">
-                <div className="w-1/2 h-full bg-white">
-                    <Wardrobe />
-                </div>
+            <div className="w-1/2 h-full bg-[#322C27] flex items-center justify-center">
+                <Wardrobe />
+            </div>
+
                 <div className="flex flex-col w-1/2 h-full bg-black justify-center items-center overflow-hidden">
                     <div className="w-1/2 h-5/6 rounded-3xl object-cover overflow-hidden">
                         {single ? <SingleCamera /> : <MultiCamera />}
