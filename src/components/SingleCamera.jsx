@@ -10,13 +10,14 @@ const colorDistance = (r1, g1, b1, r2, g2, b2) => {
 
 export default function MultiCamera() {
     const lenCanvasRef = useRef(null);
+    const resultCanvasRef = useRef(null);
 
     const { cameraKit: lenCameraKit, loading: loadingLen, session: lenSession } = useCameraKit();
 
     const itemId = useLocation().pathname.split("/")[2];
     console.log(itemId);
 
-    const lenId = "a2e19cb7-c79e-419d-9bd1-f38ac4db454c";
+    const len = "a2e19cb7-c79e-419d-9bd1-f38ac4db454c";
     const groupId = "d792b303-7695-486e-bd18-0e3e7222e6c1"
 
     useEffect(() => {
@@ -60,8 +61,47 @@ export default function MultiCamera() {
         }
 
         if (lenSession) {
-            initCameraKit(lenSession, lenCanvasRef, lenCameraKit, lenId);
+            initCameraKit(lenSession, lenCanvasRef, lenCameraKit, len);
         }
+
+        function compareCanvases() {
+            const lenCanvas = lenCanvasRef.current;
+            const resultCanvas = resultCanvasRef.current;
+
+            if (!lenCanvas) return;
+
+            const lenCtx = lenCanvas.getContext("2d");
+            const resultCtx = resultCanvas.getContext("2d");
+
+            const width = lenCanvas.width;
+            const height = lenCanvas.height;
+
+            resultCanvas.width = width;
+            resultCanvas.height = height;
+
+            const lenImageData = lenCtx.getImageData(0, 0, width, height);
+            const resultImageData = resultCtx.createImageData(width, height);
+
+            for (let i = 0; i < lenImageData.data.length; i += 4) {
+                const rLen = lenImageData.data[i];
+                const gLen = lenImageData.data[i + 1];
+                const bLen = lenImageData.data[i + 2];
+                const aLen = lenImageData.data[i + 3];
+
+                // Set the default to camera
+                resultImageData.data[i] = rLen;
+                resultImageData.data[i + 1] = gLen;
+                resultImageData.data[i + 2] = bLen;
+                resultImageData.data[i + 3] = aLen;
+            }
+            resultCtx.putImageData(resultImageData, 0, 0);
+        }
+
+        const updateInterval = () => {
+            compareCanvases();
+            setTimeout(updateInterval); // , 1000 / 25) to limit the frame rate
+        };
+        updateInterval();
 
     }, [lenSession]);
 
@@ -78,8 +118,11 @@ export default function MultiCamera() {
     }
 
     return (
-        <div className="flex flex-col w-full h-full object-cover">
-            <canvas ref={lenCanvasRef} width={640} height={480} className="h-full w-full rounded-3xl object-cover" />
+        <div className="relative flex flex-col w-full h-full object-cover">
+            <div id="len-canvas-container" className="absolute invisible">
+                <canvas ref={lenCanvasRef} width={640} height={480} />
+            </div>
+            <canvas ref={resultCanvasRef} width={640} height={480} className="h-full w-full rounded-3xl object-cover" />
         </div>
     );
 }
