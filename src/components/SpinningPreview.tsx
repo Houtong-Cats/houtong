@@ -50,8 +50,8 @@ export default function SpinningPreview({ glbFile }: Props) {
       }
     );
 
-    camera.position.z = 5; // 80
-    camera.position.y = 7;
+    camera.position.z = 4;
+    camera.position.y = 6;
 
     function animate() {
       requestAnimationFrame(animate);

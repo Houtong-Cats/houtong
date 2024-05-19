@@ -27,9 +27,9 @@ export default function Wardrobe() {
       <div className="mt-[2vw]">
         <h2 className="text-[20px] font-medium mb-4 ">Tops</h2>
         <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
-          {tops.map((item, index) => (
+          {tops.map((topItem, index) => (
             <div key={index} onClick={() => setSelectedTopIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedTopIndex === index ? "bg-blue-500" : ""}`}>
-              {item}
+              <SpinningPreview glbFile={topItem.glbFile} />
             </div>
           ))}
         </div>
