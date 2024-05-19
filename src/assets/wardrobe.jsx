@@ -23,12 +23,12 @@ export default function Wardrobe() {
   const [selectedAccessoryIndex, setSelectedAccessoryIndex] = useItemClick();
 
   return (
-    <div className="font-poppins flex flex-row gap-10 bg-[#E4E4E4] w-[750px] h-[600px] rounded-xl object-center align-center justify-center font-poppins">
+    <div className="font-poppins flex flex-row gap-10 bg-[#E4E4E4] w-[750px] h-[700px] rounded-xl object-center align-center justify-center font-poppins">
       <div className="mt-[2vw]">
         <h2 className="text-[20px] font-medium mb-4 ">Tops</h2>
         <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
           {tops.map((topItem, index) => (
-            <div key={index} onClick={() => setSelectedTopIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedTopIndex === index ? "bg-blue-500" : ""}`}>
+            <div key={index} onClick={() => setSelectedTopIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedTopIndex === index ? "bg-blue-500" : ""}`} draggble={false}>
               <SpinningPreview glbFile={topItem.glbFile} />
             </div>
           ))}
