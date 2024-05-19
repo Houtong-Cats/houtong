@@ -28,7 +28,7 @@ export default function Index() {
                     <h1 className='md:text-[35px] text-[40px] pt-[2vw] font-abhaya'>VirtuDrip</h1>
                     <h1 className='md:text-[70px] text-[60px] w-[300px] md:w-[35vw] min-w-[400px] mt-[100px] font-abhaya md:mt-[8vw]'>Mirror, mirror on your screen</h1>
                     <p className='md:text-[2vw] md:w-[800px] text-[20px] font-poppins mt-[2vw] w-[300px]'>Try on clothes virtually to find the perfect style, fit, and colour.</p>
-                    <Link to="/color">     
+                    <Link to="/items">     
                         <button 
                             className='mt-[10vw] md:mt-[3vw] rounded-xl w-[200px] h-[75px] text-[18px] font-poppins bg-[#6E5B4A] font-bold shadow hover:bg-gray-200 active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
                             aria-label='Button'>
