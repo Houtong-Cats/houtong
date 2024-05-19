@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SpinningPreview from "../components/SpinningPreview";
 
-import { tops, bottoms, accessories } from "../data/apparel.ts";
+import { tops, bottoms, accessories } from "../data/apparel.js";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
