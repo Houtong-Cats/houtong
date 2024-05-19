@@ -12,6 +12,10 @@ export default function CustomButton({onSuccess}: {onSuccess: () => void}){
     reader.onload = async () => {
       const base64 = reader.result;
       await setImage(base64);
+
+      // sleep for 1 second then call onSuccess
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       onSuccess();
     };
   }
