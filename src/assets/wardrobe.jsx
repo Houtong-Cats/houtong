@@ -58,7 +58,7 @@ export default function Wardrobe() {
   }
 
   return (
-    <div className="font-poppins flex flex-row border border-[#8B827B] gap-10 text-white bg-[#5B4F45] w-[700px] h-[600px] rounded-xl object-center align-center justify-center">
+    <div className="font-poppins flex flex-row gap-10 text-white w-[700px] h-[600px] rounded-xl object-center align-center justify-center">
       <div className="mt-[2vw]">
         <h2 className="text-[20px] font-bold mb-4 ">Tops</h2>
         <div className="overflow-y-auto w-[200px] h-[80%] mt-[3vw]">
