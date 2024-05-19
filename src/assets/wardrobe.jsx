@@ -1,7 +1,12 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import SpinningPreview from "../components/SpinningPreview";
 
 import { tops } from "../data/apparel.ts";
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 function useItemClick() {
   const [selectedIndex, setSelectedIndex] = React.useState(null);
@@ -14,7 +19,6 @@ function useItemClick() {
 }
 
 export default function Wardrobe() {
-  //   const tops = Array.from({ length: 5 }, (_, index) => `Top ${index + 1}`);
   const bottoms = Array.from({ length: 5 }, (_, index) => `Bottom ${index + 1}`);
   const accessories = Array.from({ length: 5 }, (_, index) => `Accessory ${index + 1}`);
 
@@ -22,13 +26,33 @@ export default function Wardrobe() {
   const [selectedBottomIndex, setSelectedBottomIndex] = useItemClick();
   const [selectedAccessoryIndex, setSelectedAccessoryIndex] = useItemClick();
 
+  const query = useQuery();
+  const topId = query.get('top') ? query.get('top') : "";
+  const bottomId = query.get('bottom') ? query.get('bottom') : "";
+  const accessoryId = query.get('accessory') ? query.get('accessory') : "";
+
+  const navigate = useNavigate();
+
+  function selectTop(newTopId) {
+    if (topId === newTopId) {
+      return;
+    } else {
+      navigate(`/items?top=${newTopId}&bottom=${bottomId}&accessory=${accessoryId}`);
+      window.location.reload();
+    }
+  }
+
   return (
     <div className="font-poppins flex flex-row gap-10 bg-[#E4E4E4] w-[750px] h-[600px] rounded-xl object-center align-center justify-center">
       <div className="mt-[2vw]">
         <h2 className="text-[20px] font-medium mb-4 ">Tops</h2>
         <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
           {tops.map((topItem, index) => (
-            <div key={index} onClick={() => setSelectedTopIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedTopIndex === index ? "bg-blue-500" : ""}`}>
+            <div
+              key={index}
+              onClick={() => { setSelectedTopIndex(index); console.log(topItem.lenId); selectTop(topItem.lenId); }}
+              className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedTopIndex === index ? "bg-blue-500" : ""}`}
+            >
               <SpinningPreview glbFile={topItem.glbFile} />
             </div>
           ))}
