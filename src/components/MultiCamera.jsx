@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom';
 import { createMediaStreamSource, Transform2D } from "@snap/camera-kit";
 import useCameraKit from "../hooks/useCameraKit";
 
-// functoin to compare 2 rgba values are almost the same color
+// Function to compare if 2 rgba values are almost the same color
 const colorDistance = (r1, g1, b1, r2, g2, b2) => {
     return Math.sqrt((r2 - r1) ** 2 + (g2 - g1) ** 2 + (b2 - b1) ** 2);
 };
 
-export default function Camera() {
+export default function MultiCamera() {
     const topCanvasRef = useRef(null);
     const bottomCanvasRef = useRef(null);
     const accessoryCanvasRef = useRef(null);
@@ -23,6 +23,11 @@ export default function Camera() {
     const itemId = useLocation().pathname.split("/")[2];
     console.log(itemId);
 
+    const top = "a2e19cb7-c79e-419d-9bd1-f38ac4db454c";
+    const bottom = "95281864-5320-4088-b7ef-fb571d295ed6"
+    const accessory = "f26c157c-ed7c-49ac-918f-f6c37b23323c"
+    const groupId = "d792b303-7695-486e-bd18-0e3e7222e6c1"
+
     useEffect(() => {
         async function initCameraKit(session, canvasRef, cameraKit, lensId) {
             if (!session || !canvasRef.current) return;
@@ -33,14 +38,13 @@ export default function Camera() {
 
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             const source = createMediaStreamSource(stream, {
-                // fpsLimit: 60, // 30
                 transform: Transform2D.MirrorX,
                 cameraType: "front",
             });
             await session.setSource(source);
 
             if (lensId) {
-                const lens = await cameraKit.lensRepository.loadLens(lensId, "d792b303-7695-486e-bd18-0e3e7222e6c1");
+                const lens = await cameraKit.lensRepository.loadLens(lensId, groupId);
                 await session.applyLens(lens);
             }
 
@@ -49,7 +53,15 @@ export default function Camera() {
             const drawFrame = () => {
                 const ctx = canvasRef.current.getContext("2d");
                 if (ctx) {
-                    ctx.drawImage(liveElement, 0, 0, canvasRef.current.width, canvasRef.current.height);
+                    // Match the canvas size to the container size
+                    const { width, height } = canvasRef.current.getBoundingClientRect();
+                    canvasRef.current.width = width;
+                    canvasRef.current.height = height;
+
+                    // Disable image smoothing
+                    ctx.imageSmoothingEnabled = false;
+
+                    ctx.drawImage(liveElement, 0, 0, width, height);
                 }
                 requestAnimationFrame(drawFrame);
             };
@@ -57,15 +69,15 @@ export default function Camera() {
         }
 
         if (topSession) {
-            initCameraKit(topSession, topCanvasRef, topCameraKit, "a2e19cb7-c79e-419d-9bd1-f38ac4db454c");
+            initCameraKit(topSession, topCanvasRef, topCameraKit, top);
         }
 
         if (bottomSession) {
-            initCameraKit(bottomSession, bottomCanvasRef, bottomCameraKit, ""); // 607d20a3-60fb-4414-90f7-fbe3629307f3
+            initCameraKit(bottomSession, bottomCanvasRef, bottomCameraKit, bottom);
         }
 
         if (accessorySession) {
-            initCameraKit(accessorySession, accessoryCanvasRef, accessoryCameraKit, "f26c157c-ed7c-49ac-918f-f6c37b23323c");
+            initCameraKit(accessorySession, accessoryCanvasRef, accessoryCameraKit, accessory);
         }
 
         if (cameraSession) {
@@ -99,6 +111,8 @@ export default function Camera() {
             const cameraImageData = cameraCtx.getImageData(0, 0, width, height);
             const resultImageData = resultCtx.createImageData(width, height);
 
+            const threshold =  15;
+
             for (let i = 0; i < topImageData.data.length; i += 4) {
                 const rTop = topImageData.data[i];
                 const gTop = topImageData.data[i + 1];
@@ -120,32 +134,17 @@ export default function Camera() {
                 const bCamera = cameraImageData.data[i + 2];
                 const aCamera = cameraImageData.data[i + 3];
 
-                // set the default to camera
+                // Set the default to camera
                 resultImageData.data[i] = rCamera;
                 resultImageData.data[i + 1] = gCamera;
                 resultImageData.data[i + 2] = bCamera;
                 resultImageData.data[i + 3] = aCamera;
 
-                // render priority to the accessory image, then top, then bottom
-
-                // check if top, bottom, and accessory is same as the camera
-                const threshold = 15;
-
+                // Render priority to the accessory image, then top, then bottom
                 const topDifferent = colorDistance(rTop, gTop, bTop, rCamera, gCamera, bCamera) > threshold;
                 const bottomDifferent = colorDistance(rBottom, gBottom, bBottom, rCamera, gCamera, bCamera) > threshold;
                 const accessoryDifferent = colorDistance(rAccessory, gAccessory, bAccessory, rCamera, gCamera, bCamera) > threshold;
 
-
-                // if (i === 0) {
-                //     console.log(topDifferent, bottomDifferent, accessoryDifferent)
-                //     // print out the rgba values
-                //     console.log("top: ", rTop, gTop, bTop, aTop)
-                //     console.log("bottom: ", rBottom, gBottom, bBottom, aBottom)
-                //     console.log("accessory: ", rAccessory, gAccessory, bAccessory, aAccessory)
-                //     console.log("camera: ", rCamera, gCamera, bCamera, aCamera)
-                // }
-
-                // Check for differences and apply priority: accessory > top > bottom
                 if (accessoryDifferent) {
                     resultImageData.data[i] = rAccessory;
                     resultImageData.data[i + 1] = gAccessory;
@@ -168,41 +167,39 @@ export default function Camera() {
 
         const updateInterval = () => {
             compareCanvases();
-            requestAnimationFrame(updateInterval);
+            setTimeout(updateInterval); // , 1000 / 25) to limit the frame rate
         };
         updateInterval();
 
     }, [topSession, bottomSession, accessorySession, cameraSession]);
 
     if (loadingTop || loadingBottom || loadingAccessory || loadingCamera) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex items-center justify-center text-orange-200">
+                <svg className="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V4a10 10 0 00-10 10h2zm2 8a8 8 0 018-8h2a10 10 0 00-10-10v2z"></path>
+                </svg>
+                Loading...
+            </div>
+        );
     }
 
     return (
-        <div className="flex flex-col w-full h-full">
-            <div>
-                Item: {itemId}
-            </div>
+        <div className="relative flex flex-col w-full h-full object-cover">
             <div id="top-canvas-container" className="absolute invisible">
-                <canvas ref={topCanvasRef} width={640} height={480} className="w-full h-full" />
-                <h2 className="text-center text-white">Top Camera</h2>
+                <canvas ref={topCanvasRef} width={640} height={480} />
             </div>
             <div id="bottom-canvas-container" className="absolute invisible">
-                <canvas ref={bottomCanvasRef} width={640} height={480} className="w-full h-full" />
-                <h2 className="text-center text-white">Bottom Camera</h2>
+                <canvas ref={bottomCanvasRef} width={640} height={480} />
             </div>
             <div id="accessory-canvas-container" className="absolute invisible">
-                <canvas ref={accessoryCanvasRef} width={640} height={480} className="w-full h-full" />
-                <h2 className="text-center text-white">Accessory Camera</h2>
+                <canvas ref={accessoryCanvasRef} width={640} height={480} />
             </div>
             <div id="camera-canvas-container" className="absolute invisible">
-                <canvas ref={cameraCanvasRef} width={640} height={480} className="w-full h-full" />
-                <h2 className="text-center text-white">Camera</h2>
+                <canvas ref={cameraCanvasRef} width={640} height={480} />
             </div>
-            <div className="flex-1">
-                <canvas ref={resultCanvasRef} width={640} height={480} className="w-full h-full" />
-                <h2 className="text-center text-white">Result</h2>
-            </div>
+            <canvas ref={resultCanvasRef} width={640} height={480} className="h-full w-full rounded-3xl object-cover" />
         </div>
     );
 }

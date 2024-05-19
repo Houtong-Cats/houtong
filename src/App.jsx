@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route index element={<Index />} />
         <Route path="/webcam" element={<Webcam />} />
-        <Route path="/items/:itemId" element={<Item />} />
+        <Route path="/items" element={<Item />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </BrowserRouter>
