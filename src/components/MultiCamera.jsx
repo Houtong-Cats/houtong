@@ -8,6 +8,10 @@ const colorDistance = (r1, g1, b1, r2, g2, b2) => {
     return Math.sqrt((r2 - r1) ** 2 + (g2 - g1) ** 2 + (b2 - b1) ** 2);
 };
 
+const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+};
+
 export default function MultiCamera() {
     const topCanvasRef = useRef(null);
     const bottomCanvasRef = useRef(null);
@@ -20,12 +24,11 @@ export default function MultiCamera() {
     const { cameraKit: accessoryCameraKit, loading: loadingAccessory, session: accessorySession } = useCameraKit();
     const { cameraKit: cameraCameraKit, loading: loadingCamera, session: cameraSession } = useCameraKit();
 
-    const itemId = useLocation().pathname.split("/")[2];
-    console.log(itemId);
+    const query = useQuery();
+    const top = query.get('top');
+    const bottom = query.get('bottom');
+    const accessory = query.get('accessory');
 
-    const top = "a2e19cb7-c79e-419d-9bd1-f38ac4db454c";
-    const bottom = "95281864-5320-4088-b7ef-fb571d295ed6"
-    const accessory = "f26c157c-ed7c-49ac-918f-f6c37b23323c"
     const groupId = "d792b303-7695-486e-bd18-0e3e7222e6c1"
 
     useEffect(() => {

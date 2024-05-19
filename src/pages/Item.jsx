@@ -10,6 +10,9 @@ const useQuery = () => {
     return new URLSearchParams(useLocation().search);
 };
   
+const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+}
 
 export default function Item() {
 
@@ -36,7 +39,10 @@ export default function Item() {
                         {single ? <SingleCamera /> : <MultiCamera />}
                     </div>
                     <div className="py-2" />
-                    <div className="flex px-5 py-2 bg-[#766a60] text-white rounded-full items-center hover:cursor-pointer">
+                    <div
+                        className="flex px-5 py-2 bg-[#766a60] text-white rounded-full items-center hover:cursor-pointer"
+                        onClick={() => {copyToClipboard(window.location.href); alert("Link copied to clipboard!")}}    
+                    >
                         Share
                         <FiShare className="ml-2 text-lg" />
                     </div>
