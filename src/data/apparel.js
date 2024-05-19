@@ -44,8 +44,8 @@ export const tops = [
         title: "Cotton Puffer",
     },
     {
-        lenId: "",  // white dress
-        title: "White Dress",
+        lenId: "d71c53d9-6eae-4300-a95c-659a6b86aa8b",  // lace dress
+        title: "Lace Dress",
     }
 ];
 
@@ -59,7 +59,7 @@ export const bottoms = [
         title: "Jeans",
     },
     {
-        lenId: "",  // shorts
+        lenId: "f44e6934-f76f-4a6d-b7cb-55f61508d122",  // shorts
         title: "Shorts",
     }
 ];
