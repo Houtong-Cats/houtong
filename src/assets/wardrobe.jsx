@@ -24,18 +24,17 @@ export default function Wardrobe() {
 
   return (
     <div className="font-poppins flex flex-row gap-10 bg-[#E4E4E4] w-[750px] h-[600px] rounded-xl object-center align-center justify-center font-poppins">
-      <div>
+      <div className="mt-[2vw]">
         <h2 className="text-[20px] font-medium mb-4 ">Tops</h2>
         <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
-          {tops.map((topItem, index) => (
-            <div key={index} onClick={() => setSelectedTopIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black overflow-hidden ${selectedTopIndex === index ? "bg-blue-500" : ""}`}>
-              {/* {item} */}
-              <SpinningPreview glbFile={topItem.glbFile} />
+          {tops.map((item, index) => (
+            <div key={index} onClick={() => setSelectedTopIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedTopIndex === index ? "bg-blue-500" : ""}`}>
+              {item}
             </div>
           ))}
         </div>
       </div>
-      <div>
+      <div className="mt-[2vw]">
         <h2 className="text-xl font-medium mb-4">Bottoms</h2>
         <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
           {bottoms.map((item, index) => (
@@ -45,7 +44,7 @@ export default function Wardrobe() {
           ))}
         </div>
       </div>
-      <div>
+      <div className="mt-[2vw]">
         <h2 className="text-xl font-medium mb-4">Accessories</h2>
         <div className="overflow-y-scroll h-[80%] w-[200px] mt-[3vw]">
           {accessories.map((item, index) => (

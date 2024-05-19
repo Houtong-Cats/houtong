@@ -5,7 +5,15 @@ export default {
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                cherry: ['"Cherry Bomb"', 'cursive'],
+                poppins: ['"Poppins"', 'sans-serif']
+            },
+            backgroundImage: {
+                'custom-gradient': 'linear-gradient(to bottom, #000000, #70675F)',
+            },
+        },
     },
     plugins: [],
 }
