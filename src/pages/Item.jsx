@@ -27,15 +27,15 @@ export default function Item() {
     const single = (topId && !bottomId && !accessoryId) || (!topId && bottomId && !accessoryId) || (!topId && !bottomId && accessoryId);
 
     return (
-        <div className="flex flex-col w-full h-screen">
+        <div className="flex flex-col w-full h-screen bg-[#322C27]">
             <Navbar />      
-            <div className="flex flex-col md:flex-row h-screen">
-            <div className="w-full md:w-1/2 h-full bg-[#322C27] flex items-center justify-end">
-                <Wardrobe />
-            </div>
+            <div className="grid grid-cols-2 h-screen px-7">
+                <div className="w-full h-full flex items-center justify-center">
+                    <Wardrobe />
+                </div>
 
-                <div className="flex flex-col w-1/2 h-full bg-[#322C27] justify-center items-center overflow-hidden">
-                    <div className="w-full md:w-1/2 h-5/6 rounded-3xl object-cover overflow-hidden">
+                <div className="flex flex-col w-full h-full justify-center items-center overflow-hidden">
+                    <div className="w-full md:w-full h-5/6 pr-10 rounded-3xl object-cover overflow-hidden">
                         {single ? <SingleCamera /> : <MultiCamera />}
                     </div>
                     <div className="py-2" />
