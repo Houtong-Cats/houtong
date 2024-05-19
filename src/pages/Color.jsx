@@ -47,6 +47,63 @@ export default function Color () {
                         <div className="rounded-full w-[35px] h-[35px] bg-[#36444F]"></div>
                         <div className="rounded-full w-[35px] h-[35px] bg-[#010101]"></div>
                     </div>
+                    <h2 className="mt-[8vw] text-white leading-tight font-poppins text-[32px] w-[600px]">Summer (cool + light)</h2>
+                    <div className="grid grid-flow-col gap-2">
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#233342]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#3C356B]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#9B66D8]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#9692DF]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#FD65AE]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#E7277A]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#A31047]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#FBF88D]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#88BEA6]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#05B390]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#008284]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#4B67CB]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#4F9ED6]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#7AD7E9]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#AAD2EB]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#DBDBDB]"></div>
+                    </div>
+                    <h2 className="mt-[8vw] text-white leading-tight font-poppins text-[32px] w-[600px]">Autumn (warm + dark)</h2>
+                    <div className="grid grid-flow-col gap-2">
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#551F5C]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#4F3968]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#625F98]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#90112B]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#D21F0B]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#F4C116]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#E8D2A0]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#9D8E19]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#507D2A]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#155C24]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#014425]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#18A289]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#265775]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#60524F]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#8E4C29]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#5A3616]"></div>
+                    </div>
+                    <h2 className="mt-[8vw] text-white leading-tight font-poppins text-[32px] w-[600px]">Spring (warm + light)</h2>
+                    <div className="grid grid-flow-col gap-2">
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#D57BAE]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#824C71]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#E73D36]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#E65E76]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#F27E91]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#F8CDBD]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#FFEFA5]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#FFE455]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#96BE5D]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#69B642]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#13619F]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#11AFCC]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#76CAD4]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#C2E9F8]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#BB9860]"></div>
+                        <div className="rounded-full w-[35px] h-[35px] bg-[#B17631]"></div>
+                    </div>
                 </div>
             </div>
             
