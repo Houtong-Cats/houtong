@@ -7,8 +7,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                cherry: ['"Cherry Bomb"', 'cursive'],
-                poppins: ['"Poppins"', 'sans-serif']
+                'abhaya': ['Abhaya Libre', 'sans-serif'],
+                poppins: ['"Poppins"', 'sans-serif'],
             },
             backgroundImage: {
                 'custom-gradient': 'linear-gradient(to bottom, #000000, #70675F)',
