@@ -18,6 +18,14 @@ function useItemClick() {
   return [selectedIndex, handleClick];
 }
 
+function icon({url}) {
+  return (
+    <div className="w-full h-full aspect-square object-cover overflow-hidden p-5">
+      <img src={url} alt="icon" />
+    </div>
+  )
+}
+
 export default function Wardrobe() {
   const [selectedTopIndex, setSelectedTopIndex] = useItemClick();
   const [selectedBottomIndex, setSelectedBottomIndex] = useItemClick();
@@ -68,7 +76,7 @@ export default function Wardrobe() {
               onClick={() => { setSelectedTopIndex(index); console.log(topItem.lenId); selectTop(topItem.lenId); }}
               className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black ${selectedTopIndex === index ? "bg-blue-500" : ""}`}
             >
-              {topItem.glbFile ? <SpinningPreview glbFile={topItem.glbFile} /> : <div className="w-full h-full text-center">{topItem.title}</div>}
+              {topItem.glbFile ? <SpinningPreview glbFile={topItem.glbFile} /> : icon({url: topItem.icon})}
             </div>
           ))}
         </div>
@@ -78,7 +86,7 @@ export default function Wardrobe() {
         <div className="overflow-y-auto w-[200px] h-[80%] mt-[3vw]">
           {bottoms.map((bottomItem, index) => (
             <div key={index} onClick={() => {setSelectedBottomIndex(index); console.log(bottomItem.lenId); selectBottom(bottomItem.lenId); }} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black ${selectedBottomIndex === index ? "bg-blue-500" : ""}`}>
-              {bottomItem.glbFile ? <SpinningPreview glbFile={bottomItem.glbFile} /> : <div className="w-full h-full text-center">{bottomItem.title}</div>}
+              {bottomItem.glbFile ? <SpinningPreview glbFile={bottomItem.glbFile} /> : icon({url: bottomItem.icon})}
             </div>
           ))}
         </div>
@@ -88,7 +96,7 @@ export default function Wardrobe() {
         <div className="overflow-y-auto h-[80%] w-[200px] mt-[3vw]">
           {accessories.map((accessoryItem, index) => (
             <div key={index} onClick={() => {setSelectedAccessoryIndex(index); console.log(accessoryItem.lenId); selectAccessory(accessoryItem.lenId); }} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black ${selectedAccessoryIndex === index ? "bg-blue-500" : ""}`}>
-              {accessoryItem.glbFile ? <SpinningPreview glbFile={accessoryItem.glbFile} /> : <div className="w-full h-full text-center">{accessoryItem.title}</div>}
+              {accessoryItem.glbFile ? <SpinningPreview glbFile={accessoryItem.glbFile} /> : icon({url: accessoryItem.icon})}
             </div>
           ))}
         </div>
