@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SpinningPreview from "../components/SpinningPreview";
 
-import { tops } from "../data/apparel.ts";
+import { tops, bottoms } from "../data/apparel.ts";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -19,7 +19,6 @@ function useItemClick() {
 }
 
 export default function Wardrobe() {
-  const bottoms = Array.from({ length: 5 }, (_, index) => `Bottom ${index + 1}`);
   const accessories = Array.from({ length: 5 }, (_, index) => `Accessory ${index + 1}`);
 
   const [selectedTopIndex, setSelectedTopIndex] = useItemClick();
@@ -51,9 +50,9 @@ export default function Wardrobe() {
             <div
               key={index}
               onClick={() => { setSelectedTopIndex(index); console.log(topItem.lenId); selectTop(topItem.lenId); }}
-              className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedTopIndex === index ? "bg-blue-500" : ""}`}
+              className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-black ${selectedTopIndex === index ? "bg-blue-500" : ""}`}
             >
-              <SpinningPreview glbFile={topItem.glbFile} />
+              {topItem.glbFile ? <SpinningPreview glbFile={topItem.glbFile} /> : topItem.lenId}
             </div>
           ))}
         </div>
@@ -63,7 +62,7 @@ export default function Wardrobe() {
         <div className="overflow-y-scroll w-[200px] h-[80%] mt-[3vw]">
           {bottoms.map((item, index) => (
             <div key={index} onClick={() => setSelectedBottomIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedBottomIndex === index ? "bg-blue-500" : ""}`}>
-              {item}
+              {/* {item} */}
             </div>
           ))}
         </div>
@@ -73,7 +72,7 @@ export default function Wardrobe() {
         <div className="overflow-y-scroll h-[80%] w-[200px] mt-[3vw]">
           {accessories.map((item, index) => (
             <div key={index} onClick={() => setSelectedAccessoryIndex(index)} className={`item mb-2 w-[150px] rounded-lg h-[150px] bg-white text-white ${selectedAccessoryIndex === index ? "bg-blue-500" : ""}`}>
-              {item}
+              {/* {item} */}
             </div>
           ))}
         </div>

@@ -31,10 +31,16 @@ export const tops = [
     lenId: "447304c9-4aa9-450e-8845-fb0fed8e75ec",
     glbFile: shirt9,
   },
+  {
+    lenId: "a2e19cb7-c79e-419d-9bd1-f38ac4db454c",  // lizard tshirt
+  },
+  {
+    lenId: "607d20a3-60fb-4414-90f7-fbe3629307f3", // cotton puffer
+  }
 ];
 
 export const bottoms = [
     {
-
+        lenId: "95281864-5320-4088-b7ef-fb571d295ed6",  // jeans
     }
 ];
