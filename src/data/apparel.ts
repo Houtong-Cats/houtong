@@ -28,7 +28,13 @@ export const tops = [
     glbFile: shirt7,
   },
   {
-    lenId: "",
+    lenId: "447304c9-4aa9-450e-8845-fb0fed8e75ec",
     glbFile: shirt9,
   },
+];
+
+export const bottoms = [
+    {
+
+    }
 ];
